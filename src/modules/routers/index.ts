@@ -1,10 +1,6 @@
-import { Application, Router } from "express";
-import userRouter from "./userRouter";
+import { Express } from "express";
+import userRoutes from "../routers/userRouter";
 
-export default (app: Application) => {
-    const router = Router();
-
-    router.use("/users", userRouter);
-
-    app.use(router);
+export default function routes(app: Express) {
+  app.use("/users", userRoutes);
 }
