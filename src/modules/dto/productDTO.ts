@@ -1,4 +1,4 @@
-import type { UUID } from "../../../types/uuid";
+import type { UUID } from "../../types/uuid";
 
 export interface productDTO {
     id: UUID;
