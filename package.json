@@ -4,17 +4,30 @@
   "description": "API for Kaution application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsnd --exit-child --respawn --transpile-only --files src/index.ts",
+    "start": "tsc && node dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@prisma/client": "^6.6.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/nodemailer": "^6.4.17",
     "bcryptjs": "^3.0.2",
+    "prisma": "^6.6.0"
+  },
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "googleapis": "^148.0.0",
     "jsonwebtoken": "^9.0.2",
-    "nodemailer": "^6.10.1"
+    "nodemailer": "^6.10.1",
+    "ts-node-dev": "^2.0.0"
   }
 }
