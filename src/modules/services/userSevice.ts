@@ -3,8 +3,7 @@ import { userDTO } from "../dto";
 import bcrypt from "bcryptjs";
 
 export class UserService {
-    async create(data: userDTO) {
-        
+    static async create(data: userDTO) {
         const exists = await prisma.user.findUnique({
             where: {
                 email: data.email
