@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { ApiError } from "../utils/ApiError";
 import { UserService } from "../services/userSevice";
 
 export class UserController {
@@ -13,7 +12,7 @@ export class UserController {
         data: user,
       });
     } catch (err) {
-      next(new ApiError(400, "User creation failed"));
+      next(err);
       console.log(err);
     }
   }
