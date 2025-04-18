@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { CategoryService } from "../services/categoryService";
 
-export class categoryController {
+export class CategoryController {
     static async create(req: Request, res: Response) {
         try {
             const category = await CategoryService.create(req.body);
