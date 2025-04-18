@@ -1,7 +1,7 @@
 import { inventoryDTO } from "../dto";
 import { prisma } from "../../libs/prisma";
 
-export class inventoryService {
+export class InventoryService {
     static async create(data: inventoryDTO) {
 
         const exists = await prisma.inventory.findUnique({

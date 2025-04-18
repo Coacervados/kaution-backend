@@ -1,8 +1,8 @@
 import { categoryDTO } from "../dto";
 import { prisma } from "../../libs/prisma";
 
-export class categoryService {
-  async create(data: categoryDTO) {
+export class CategoryService {
+  static async create(data: categoryDTO) {
     
     const exists = await prisma.category.findUnique({
         where: {

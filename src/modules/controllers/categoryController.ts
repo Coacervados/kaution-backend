@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { InventoryService } from "../services/inventoryService";
+import { CategoryService } from "../services/categoryService";
 
-export class InventoryController {
+export class categoryController {
     static async create(req: Request, res: Response) {
         try {
-            const inventory = await InventoryService.create(req.body);
-            res.status(201).json(inventory);
+            const category = await CategoryService.create(req.body);
+            res.status(201).json(category);
         } catch (err) {
             res.status(400).json({ message: (err as Error).message });
         }
