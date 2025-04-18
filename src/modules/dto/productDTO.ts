@@ -8,6 +8,6 @@ export interface productDTO {
     createdAt: Date;
     updateAt: Date;
     inventoryId: string;
-    userId: UUID;
+    categoryId: string;
     seducCode: string;
 }

@@ -3,7 +3,6 @@ import { prisma } from "../../libs/prisma";
 
 export class CategoryService {
   static async create(data: categoryDTO) {
-    
     const exists = await prisma.category.findUnique({
         where: {
             name: data.name,
@@ -15,7 +14,7 @@ export class CategoryService {
         throw new Error("Category already exists");
     }
 
-    const category = await prisma.category.create({
+    return await prisma.category.create({
       data: {
         name: data.name,
         description: data.description,
@@ -25,6 +24,5 @@ export class CategoryService {
         updateAt: new Date(),
       },
     });
-    return category;
   }
 }
