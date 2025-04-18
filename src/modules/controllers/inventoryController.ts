@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { inventoryService } from "../services/inventoryService";
 
-export class InventoryController {
+export class inventoryController {
     static async create(req: Request, res: Response) {
         try {
             const inventory = await inventoryService.create(req.body);
