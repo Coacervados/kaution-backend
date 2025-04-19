@@ -33,3 +33,9 @@ export class DatabaseError extends ApiError {
     super(500, message);
   }
 }
+
+export class UnauthorizedError extends ApiError {
+  constructor(message: string = "Unauthorized") {
+    super(401, message);
+  }
+}

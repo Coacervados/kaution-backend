@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from "express";
+import { AuthenticatedRequest } from "../../middlewares/authMiddleware";
 import { UserService } from "../services/userSevice";
 
 export class UserController {
-  static async create(req: Request, res: Response, next: NextFunction) {
+  static async create(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
       const user = await UserService.create(req.body);
       res.status(201).json({
@@ -17,7 +18,7 @@ export class UserController {
     }
   }
 
-  static async list(req: Request, res: Response, next: NextFunction) {
+  static async list(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
       const users = await UserService.list();
       res
@@ -29,7 +30,7 @@ export class UserController {
     }
   }
 
-  static async get(req: Request, res: Response, next: NextFunction) {
+  static async get(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
       const user = await UserService.get(req.params.id);
       res.status(200).json({ success: true, message: "User", data: user });
@@ -39,7 +40,7 @@ export class UserController {
     }
   }
 
-  static async delete(req: Request, res: Response, next: NextFunction) {
+  static async delete(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
       const user = await UserService.delete(req.params.id);
       res
@@ -51,7 +52,7 @@ export class UserController {
     }
   }
 
-  static async update(req: Request, res: Response, next: NextFunction) {
+  static async update(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
       const user = await UserService.update(req.params.id, req.body);
       res

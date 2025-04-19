@@ -2,6 +2,9 @@ import { ConflictError, ValidationErr, NotFoundError } from "../utils/apiError";
 import { prisma } from "../../libs/prisma";
 import { userDTO } from "../dto";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+const secret = process.env.JWT_SECRET as string;
 
 export class UserService {
     static async create(data: userDTO) {
@@ -27,6 +30,34 @@ export class UserService {
             },
         });
     }
+
+    static async login(email: string, password: string) {
+        const user = await prisma.user.findUnique({
+          where: { email },
+        });
+    
+        if (!user) {
+          throw new NotFoundError("User not exists");
+        }
+    
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+          throw new ValidationErr("Invalid password");
+        }
+    
+        const token = jwt.sign({ id: user.id }, secret, {
+          expiresIn: "7d",
+        });
+    
+        return {
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+          },
+          token,
+        };
+      }
 
     static async list(){
         return await prisma.user.findMany({
