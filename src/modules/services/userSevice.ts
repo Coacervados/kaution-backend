@@ -1,4 +1,4 @@
-import { ConflictError, ValidationErr } from "../utils/ApiError";
+import { ConflictError, ValidationErr } from "../utils/apiError";
 import { prisma } from "../../libs/prisma";
 import { userDTO } from "../dto";
 import bcrypt from "bcryptjs";
