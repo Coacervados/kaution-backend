@@ -17,10 +17,12 @@ export class InventoryController {
   }
   static async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const inventory = await InventoryService.list();
-      res
-        .status(200)
-        .json({ success: true, message: "Inventory list", data: inventory });
+      const inventories = await InventoryService.list(req.params.userId);
+      res.status(200).json({
+        success: true,
+        message: "Inventories list",
+        data: inventories,
+      });
     } catch (err) {
       next(err);
       console.log(err);
@@ -29,7 +31,10 @@ export class InventoryController {
 
   static async get(req: Request, res: Response, next: NextFunction) {
     try {
-      const inventory = await InventoryService.get(req.params.id);
+      const inventory = await InventoryService.get(
+        req.params.id,
+        req.params.userId
+      );
       res
         .status(200)
         .json({ success: true, message: "Inventory", data: inventory });
@@ -41,7 +46,11 @@ export class InventoryController {
 
   static async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const inventory = await InventoryService.update(req.params.id, req.body);
+      const inventory = await InventoryService.update(
+        req.params.id,
+        req.params.userId,
+        req.body
+      );
       res
         .status(200)
         .json({ success: true, message: "Inventory updated", data: inventory });
@@ -53,7 +62,10 @@ export class InventoryController {
 
   static async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const inventory = await InventoryService.delete(req.params.id);
+      const inventory = await InventoryService.delete(
+        req.params.id,
+        req.params.userId
+      );
       res
         .status(200)
         .json({ success: true, message: "Inventory deleted", data: inventory });

@@ -26,8 +26,24 @@ export class InventoryService {
     });
   }
 
-  static async list() {
+  static async list(userId: string) {
+    if (!userId) {
+      throw new ValidationErr("User ID is required");
+    }
+
+    const exists = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    if (!exists) {
+      throw new NotFoundError("User does not exist");
+    }
+
     return await prisma.inventory.findMany({
+      where: {
+        userId: userId,
+      },
       select: {
         id: true,
         name: true,
@@ -36,19 +52,11 @@ export class InventoryService {
     });
   }
 
-  static async get(id: string) {
-    const exists = await prisma.inventory.findUnique({
+  static async get(id: string, userId: string) {
+    const inventory = await prisma.inventory.findFirst({
       where: {
         id,
-      },
-    });
-    if (!exists) {
-      throw new NotFoundError("Inventory does not exist");
-    }
-
-    return await prisma.inventory.findUnique({
-      where: {
-        id,
+        userId,
       },
       select: {
         id: true,
@@ -57,16 +65,25 @@ export class InventoryService {
         userId: true,
       },
     });
+
+    if (!inventory) {
+      throw new NotFoundError(
+        "Inventory does not exist or does not belong to user"
+      );
+    }
+
+    return inventory;
   }
 
-  static async update(id: string, data: inventoryDTO) {
-    const inventory = await prisma.inventory.findUnique({
+  static async update(id: string, userId: string, data: inventoryDTO) {
+    const inventory = await prisma.inventory.findFirst({
       where: {
         id,
+        userId,
       },
     });
     if (!inventory) {
-      throw new NotFoundError("Inventory does not exist");
+      throw new NotFoundError("Inventory does not exist or does not belong to user");
     }
 
     return await prisma.inventory.update({
@@ -85,19 +102,20 @@ export class InventoryService {
     });
   }
 
-  static async delete(id: string) {
-    const inventory = await prisma.inventory.findUnique({
+  static async delete(id: string, userId: string) {
+    const inventory = await prisma.inventory.findFirst({
       where: {
-        id: id,
+        id,
+        userId,
       },
     });
     if (!inventory) {
-      throw new NotFoundError("Inventory does not exist");
+      throw new NotFoundError("Inventory does not exist or does not belong to user");
     }
 
     return await prisma.inventory.delete({
       where: {
-        id: id,
+        id,
       },
     });
   }
