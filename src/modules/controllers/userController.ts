@@ -17,20 +17,42 @@ export class UserController {
     }
   }
 
-  static async list(req: Request, res: Response) {
+  static async list(req: Request, res: Response, next: NextFunction) {
     try {
       const users = await UserService.list();
-      res.status(200).json({ success: true, data: users });
+      res.status(200).json({ success: true, message: "Users list", data: users });
     } catch (err) {
+      next(err);
       console.log(err);
     }
   }
 
-  static async get(req: Request, res: Response) {
+  static async get(req: Request, res: Response, next: NextFunction) {
     try {
       const user = await UserService.get(req.params.id);
-      res.status(200).json({ success: true, data: user });
+      res.status(200).json({ success: true, message: "User", data: user });
     } catch (err) {
+      next(err);
+      console.log(err);
+    }
+  }
+
+  static async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user = await UserService.delete(req.params.id);
+      res.status(200).json({ success: true, message: "User deleted", data: user });
+    } catch (err) {
+      next(err);
+      console.log(err);
+    }
+  }
+
+  static async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user = await UserService.update(req.params.id, req.body);
+      res.status(200).json({ success: true, message: "User updated", data: user });
+    } catch(err) {
+      next(err);
       console.log(err);
     }
   }
