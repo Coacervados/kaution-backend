@@ -1,15 +1,15 @@
 import { inventoryDTO } from "../dto";
 import { prisma } from "../../libs/prisma";
-import { ConflictError, ValidationErr } from "../utils/apiError";
+import { ConflictError, ValidationErr, NotFoundError } from "../utils/apiError";
 
 export class InventoryService {
   static async create(data: inventoryDTO) {
     if (!data.name || !data.userId) {
       throw new ValidationErr("All fields are required");
     }
-    const exists = await prisma.inventory.findUnique({
+    const exists = await prisma.inventory.findFirst({
       where: {
-        id: data.userId,
+        userId: data.userId,
         name: data.name,
       },
     });
@@ -43,7 +43,7 @@ export class InventoryService {
       },
     });
     if (!exists) {
-      throw new ConflictError("Inventory not exists");
+      throw new NotFoundError("Inventory does not exist");
     }
 
     return await prisma.inventory.findUnique({
@@ -66,7 +66,7 @@ export class InventoryService {
       },
     });
     if (!inventory) {
-      throw new ConflictError("Inventory not exists");
+      throw new NotFoundError("Inventory does not exist");
     }
 
     return await prisma.inventory.update({
@@ -92,7 +92,7 @@ export class InventoryService {
       },
     });
     if (!inventory) {
-      throw new ConflictError("Inventory not exists");
+      throw new NotFoundError("Inventory does not exist");
     }
 
     return await prisma.inventory.delete({

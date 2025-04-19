@@ -53,10 +53,12 @@ export class InventoryController {
 
   static async delete(req: Request, res: Response, next: NextFunction) {
     try {
-        const inventory = await InventoryService.delete(req.params.id);
-        res.status(200).json({ success: true, message: "Inventory deleted", data: inventory });
-    } catch(err) {
-      next(err);      
+      const inventory = await InventoryService.delete(req.params.id);
+      res
+        .status(200)
+        .json({ success: true, message: "Inventory deleted", data: inventory });
+    } catch (err) {
+      next(err);
       console.log(err);
     }
   }

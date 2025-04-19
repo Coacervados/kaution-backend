@@ -1,4 +1,4 @@
-import { ConflictError, ValidationErr } from "../utils/apiError";
+import { ConflictError, ValidationErr, NotFoundError } from "../utils/apiError";
 import { prisma } from "../../libs/prisma";
 import { userDTO } from "../dto";
 import bcrypt from "bcryptjs";
@@ -45,7 +45,7 @@ export class UserService {
             }
         });
         if (!exists) {
-            throw new ConflictError("User not exists");
+            throw new NotFoundError("User not exists");
         }
 
         return await prisma.user.findUnique({
@@ -69,7 +69,7 @@ export class UserService {
             }
         });
         if (!user) {
-            throw new ConflictError("User not exists");
+            throw new NotFoundError("User not exists");
         }
 
         return await prisma.user.delete({
@@ -86,7 +86,7 @@ export class UserService {
             }
         });
         if (!user) {
-            throw new ConflictError("User not exists");
+            throw new NotFoundError("User not exists");
         }
 
         return await prisma.user.update({
