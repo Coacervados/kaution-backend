@@ -6,5 +6,6 @@ export interface inventoryDTO {
     description: string;
     createdAt: Date;
     updateAt: Date;
-    userId: UUID
+    userId: UUID;
+    categories: string[];
 }

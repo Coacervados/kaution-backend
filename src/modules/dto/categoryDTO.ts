@@ -6,6 +6,7 @@ export interface categoryDTO {
     description: string | null;
     createdAt: Date;
     updateAt: Date;
-    inventortyId: string;
+    inventoryId: string;
     userId: string;
+    products: string[];
 }

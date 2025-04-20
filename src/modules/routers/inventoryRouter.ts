@@ -8,6 +8,6 @@ router.post("/", authMiddleware, InventoryController.create);
 router.get("/user", authMiddleware, InventoryController.list);
 router.get("/user/:id", authMiddleware, InventoryController.get);
 router.delete("/user/:id", authMiddleware, InventoryController.delete);
-router.put("/user/:userId/inventories/:id", authMiddleware, InventoryController.update);
+router.put("/user/:id", authMiddleware, InventoryController.update);
 
 export default router;
