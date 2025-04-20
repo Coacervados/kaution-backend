@@ -9,5 +9,6 @@ export interface productDTO {
     updateAt: Date;
     inventoryId: string;
     categoryId: string;
-    seducCode: string;
+    userId: string;
+    seducCode: string | null;
 }
