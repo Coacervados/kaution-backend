@@ -9,7 +9,7 @@ export class CategoryController {
     next: NextFunction
   ) {
     try {
-      const category = await CategoryService.create(req.body, req.user!.id);
+      const category = await CategoryService.create({ ...req.body, inventoryId: req.params.inventoryId }, req.user!.id);
       res.status(201).json({ success: true, data: category });
     } catch (err) {
       next(err);

@@ -4,10 +4,10 @@ import { Router } from "express";
 
 const router = Router();
 
-router.post("/",authMiddleware, CategoryController.create);
-router.get("/",authMiddleware, CategoryController.list);
-router.get("/:id",authMiddleware, CategoryController.get);
-router.delete("/:id", authMiddleware, CategoryController.delete);
-router.put("/:id",authMiddleware, CategoryController.update);
+router.post("/:inventoryId", authMiddleware, CategoryController.create);
+router.get("/inventory/:inventoryId", authMiddleware, CategoryController.list);
+router.get("/:inventoryId/:id", authMiddleware, CategoryController.get);
+router.put("/:inventoryId/:id", authMiddleware, CategoryController.update);
+router.delete("/:inventoryId/:id", authMiddleware, CategoryController.delete);
 
 export default router;
