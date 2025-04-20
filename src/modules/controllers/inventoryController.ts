@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import { AuthenticatedRequest } from "../../middlewares/authMiddleware";
 import { InventoryService } from "../services/inventoryService";
 
@@ -18,7 +18,7 @@ export class InventoryController {
   }
   static async list(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
-      const inventories = await InventoryService.list(req.params.userId);
+      const inventories = await InventoryService.list(req.user!.id);
       res.status(200).json({
         success: true,
         message: "Inventories list",
@@ -34,7 +34,7 @@ export class InventoryController {
     try {
       const inventory = await InventoryService.get(
         req.params.id,
-        req.params.userId
+        req.user!.id
       );
       res
         .status(200)
@@ -49,7 +49,7 @@ export class InventoryController {
     try {
       const inventory = await InventoryService.update(
         req.params.id,
-        req.params.userId,
+        req.user!.id,
         req.body
       );
       res
@@ -65,7 +65,7 @@ export class InventoryController {
     try {
       const inventory = await InventoryService.delete(
         req.params.id,
-        req.params.userId
+        req.user!.id
       );
       res
         .status(200)

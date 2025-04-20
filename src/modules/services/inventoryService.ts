@@ -27,10 +27,6 @@ export class InventoryService {
   }
 
   static async list(userId: string) {
-    if (!userId) {
-      throw new ValidationErr("User ID is required");
-    }
-
     const exists = await prisma.user.findUnique({
       where: {
         id: userId,
@@ -63,6 +59,7 @@ export class InventoryService {
         name: true,
         description: true,
         userId: true,
+        categories: true,
       },
     });
 
@@ -75,7 +72,7 @@ export class InventoryService {
     return inventory;
   }
 
-  static async update(id: string, userId: string, data: inventoryDTO) {
+  static async update(id: string, userId: string, data: Omit<inventoryDTO, "userId">) {
     const inventory = await prisma.inventory.findFirst({
       where: {
         id,
