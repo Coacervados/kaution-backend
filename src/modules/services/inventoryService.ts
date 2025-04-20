@@ -59,7 +59,13 @@ export class InventoryService {
         name: true,
         description: true,
         userId: true,
-        categories: true,
+        categories: {
+          select: {
+            name: true,
+            description: true,
+          },
+        }
+        
       },
     });
 

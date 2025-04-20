@@ -5,7 +5,7 @@ import { ConflictError, ValidationErr, NotFoundError } from "../utils/apiError";
 export class CategoryService {
   static async create(data: Omit<categoryDTO, "userId">, userId: string) {
     if (!data.name || !data.inventoryId) {
-      throw new ValidationErr("Name, userId and inventoryId are required");
+      throw new ValidationErr("Name and inventoryId are required");
     }
 
     const inventory = await prisma.inventory.findFirst({

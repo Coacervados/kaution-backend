@@ -1235,11 +1235,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     Inventory: number
     Notifications: number
+    Product: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Inventory?: boolean | UserCountOutputTypeCountInventoryArgs
     Notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+    Product?: boolean | UserCountOutputTypeCountProductArgs
   }
 
   // Custom InputTypes
@@ -1265,6 +1267,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotificationsWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountProductArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductWhereInput
   }
 
 
@@ -1517,6 +1526,7 @@ export namespace Prisma {
     updateAt?: boolean
     Inventory?: boolean | User$InventoryArgs<ExtArgs>
     Notifications?: boolean | User$NotificationsArgs<ExtArgs>
+    Product?: boolean | User$ProductArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1551,6 +1561,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Inventory?: boolean | User$InventoryArgs<ExtArgs>
     Notifications?: boolean | User$NotificationsArgs<ExtArgs>
+    Product?: boolean | User$ProductArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1561,6 +1572,7 @@ export namespace Prisma {
     objects: {
       Inventory: Prisma.$InventoryPayload<ExtArgs>[]
       Notifications: Prisma.$NotificationsPayload<ExtArgs>[]
+      Product: Prisma.$ProductPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1965,6 +1977,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     Inventory<T extends User$InventoryArgs<ExtArgs> = {}>(args?: Subset<T, User$InventoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Notifications<T extends User$NotificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$NotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Product<T extends User$ProductArgs<ExtArgs> = {}>(args?: Subset<T, User$ProductArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2431,6 +2444,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NotificationsScalarFieldEnum | NotificationsScalarFieldEnum[]
+  }
+
+  /**
+   * User.Product
+   */
+  export type User$ProductArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    where?: ProductWhereInput
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    cursor?: ProductWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
   }
 
   /**
@@ -4717,6 +4754,7 @@ export namespace Prisma {
     description: string | null
     quantity: number | null
     seducCode: string | null
+    userId: string | null
     categoryId: string | null
     inventoryId: string | null
     created: Date | null
@@ -4729,6 +4767,7 @@ export namespace Prisma {
     description: string | null
     quantity: number | null
     seducCode: string | null
+    userId: string | null
     categoryId: string | null
     inventoryId: string | null
     created: Date | null
@@ -4741,6 +4780,7 @@ export namespace Prisma {
     description: number
     quantity: number
     seducCode: number
+    userId: number
     categoryId: number
     inventoryId: number
     created: number
@@ -4763,6 +4803,7 @@ export namespace Prisma {
     description?: true
     quantity?: true
     seducCode?: true
+    userId?: true
     categoryId?: true
     inventoryId?: true
     created?: true
@@ -4775,6 +4816,7 @@ export namespace Prisma {
     description?: true
     quantity?: true
     seducCode?: true
+    userId?: true
     categoryId?: true
     inventoryId?: true
     created?: true
@@ -4787,6 +4829,7 @@ export namespace Prisma {
     description?: true
     quantity?: true
     seducCode?: true
+    userId?: true
     categoryId?: true
     inventoryId?: true
     created?: true
@@ -4885,7 +4928,8 @@ export namespace Prisma {
     name: string
     description: string | null
     quantity: number
-    seducCode: string
+    seducCode: string | null
+    userId: string
     categoryId: string
     inventoryId: string
     created: Date
@@ -4917,10 +4961,12 @@ export namespace Prisma {
     description?: boolean
     quantity?: boolean
     seducCode?: boolean
+    userId?: boolean
     categoryId?: boolean
     inventoryId?: boolean
     created?: boolean
     updateAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     inventory?: boolean | InventoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -4931,10 +4977,12 @@ export namespace Prisma {
     description?: boolean
     quantity?: boolean
     seducCode?: boolean
+    userId?: boolean
     categoryId?: boolean
     inventoryId?: boolean
     created?: boolean
     updateAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     inventory?: boolean | InventoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -4945,10 +4993,12 @@ export namespace Prisma {
     description?: boolean
     quantity?: boolean
     seducCode?: boolean
+    userId?: boolean
     categoryId?: boolean
     inventoryId?: boolean
     created?: boolean
     updateAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     inventory?: boolean | InventoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -4959,22 +5009,26 @@ export namespace Prisma {
     description?: boolean
     quantity?: boolean
     seducCode?: boolean
+    userId?: boolean
     categoryId?: boolean
     inventoryId?: boolean
     created?: boolean
     updateAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "quantity" | "seducCode" | "categoryId" | "inventoryId" | "created" | "updateAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "quantity" | "seducCode" | "userId" | "categoryId" | "inventoryId" | "created" | "updateAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     inventory?: boolean | InventoryDefaultArgs<ExtArgs>
   }
   export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     inventory?: boolean | InventoryDefaultArgs<ExtArgs>
   }
   export type ProductIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     inventory?: boolean | InventoryDefaultArgs<ExtArgs>
   }
@@ -4982,6 +5036,7 @@ export namespace Prisma {
   export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Product"
     objects: {
+      user: Prisma.$UserPayload<ExtArgs>
       category: Prisma.$CategoryPayload<ExtArgs>
       inventory: Prisma.$InventoryPayload<ExtArgs>
     }
@@ -4990,7 +5045,8 @@ export namespace Prisma {
       name: string
       description: string | null
       quantity: number
-      seducCode: string
+      seducCode: string | null
+      userId: string
       categoryId: string
       inventoryId: string
       created: Date
@@ -5389,6 +5445,7 @@ export namespace Prisma {
    */
   export interface Prisma__ProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     inventory<T extends InventoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InventoryDefaultArgs<ExtArgs>>): Prisma__InventoryClient<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -5425,6 +5482,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Product", 'String'>
     readonly quantity: FieldRef<"Product", 'Int'>
     readonly seducCode: FieldRef<"Product", 'String'>
+    readonly userId: FieldRef<"Product", 'String'>
     readonly categoryId: FieldRef<"Product", 'String'>
     readonly inventoryId: FieldRef<"Product", 'String'>
     readonly created: FieldRef<"Product", 'DateTime'>
@@ -6964,6 +7022,7 @@ export namespace Prisma {
     description: 'description',
     quantity: 'quantity',
     seducCode: 'seducCode',
+    userId: 'userId',
     categoryId: 'categoryId',
     inventoryId: 'inventoryId',
     created: 'created',
@@ -7056,6 +7115,7 @@ export namespace Prisma {
     updateAt?: DateTimeNullableFilter<"User"> | Date | string | null
     Inventory?: InventoryListRelationFilter
     Notifications?: NotificationsListRelationFilter
+    Product?: ProductListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7067,6 +7127,7 @@ export namespace Prisma {
     updateAt?: SortOrderInput | SortOrder
     Inventory?: InventoryOrderByRelationAggregateInput
     Notifications?: NotificationsOrderByRelationAggregateInput
+    Product?: ProductOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7081,6 +7142,7 @@ export namespace Prisma {
     updateAt?: DateTimeNullableFilter<"User"> | Date | string | null
     Inventory?: InventoryListRelationFilter
     Notifications?: NotificationsListRelationFilter
+    Product?: ProductListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7249,11 +7311,13 @@ export namespace Prisma {
     name?: StringFilter<"Product"> | string
     description?: StringNullableFilter<"Product"> | string | null
     quantity?: IntFilter<"Product"> | number
-    seducCode?: StringFilter<"Product"> | string
+    seducCode?: StringNullableFilter<"Product"> | string | null
+    userId?: StringFilter<"Product"> | string
     categoryId?: StringFilter<"Product"> | string
     inventoryId?: StringFilter<"Product"> | string
     created?: DateTimeFilter<"Product"> | Date | string
     updateAt?: DateTimeFilter<"Product"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     inventory?: XOR<InventoryScalarRelationFilter, InventoryWhereInput>
   }
@@ -7263,11 +7327,13 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     quantity?: SortOrder
-    seducCode?: SortOrder
+    seducCode?: SortOrderInput | SortOrder
+    userId?: SortOrder
     categoryId?: SortOrder
     inventoryId?: SortOrder
     created?: SortOrder
     updateAt?: SortOrder
+    user?: UserOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
     inventory?: InventoryOrderByWithRelationInput
   }
@@ -7280,11 +7346,13 @@ export namespace Prisma {
     name?: StringFilter<"Product"> | string
     description?: StringNullableFilter<"Product"> | string | null
     quantity?: IntFilter<"Product"> | number
-    seducCode?: StringFilter<"Product"> | string
+    seducCode?: StringNullableFilter<"Product"> | string | null
+    userId?: StringFilter<"Product"> | string
     categoryId?: StringFilter<"Product"> | string
     inventoryId?: StringFilter<"Product"> | string
     created?: DateTimeFilter<"Product"> | Date | string
     updateAt?: DateTimeFilter<"Product"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     inventory?: XOR<InventoryScalarRelationFilter, InventoryWhereInput>
   }, "id">
@@ -7294,7 +7362,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     quantity?: SortOrder
-    seducCode?: SortOrder
+    seducCode?: SortOrderInput | SortOrder
+    userId?: SortOrder
     categoryId?: SortOrder
     inventoryId?: SortOrder
     created?: SortOrder
@@ -7314,7 +7383,8 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Product"> | string
     description?: StringNullableWithAggregatesFilter<"Product"> | string | null
     quantity?: IntWithAggregatesFilter<"Product"> | number
-    seducCode?: StringWithAggregatesFilter<"Product"> | string
+    seducCode?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    userId?: StringWithAggregatesFilter<"Product"> | string
     categoryId?: StringWithAggregatesFilter<"Product"> | string
     inventoryId?: StringWithAggregatesFilter<"Product"> | string
     created?: DateTimeWithAggregatesFilter<"Product"> | Date | string
@@ -7390,6 +7460,7 @@ export namespace Prisma {
     updateAt?: Date | string | null
     Inventory?: InventoryCreateNestedManyWithoutUserInput
     Notifications?: NotificationsCreateNestedManyWithoutUserInput
+    Product?: ProductCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7401,6 +7472,7 @@ export namespace Prisma {
     updateAt?: Date | string | null
     Inventory?: InventoryUncheckedCreateNestedManyWithoutUserInput
     Notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    Product?: ProductUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7412,6 +7484,7 @@ export namespace Prisma {
     updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Inventory?: InventoryUpdateManyWithoutUserNestedInput
     Notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    Product?: ProductUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7423,6 +7496,7 @@ export namespace Prisma {
     updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Inventory?: InventoryUncheckedUpdateManyWithoutUserNestedInput
     Notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    Product?: ProductUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -7600,9 +7674,10 @@ export namespace Prisma {
     name: string
     description?: string | null
     quantity: number
-    seducCode: string
+    seducCode?: string | null
     created?: Date | string
     updateAt?: Date | string
+    user: UserCreateNestedOneWithoutProductInput
     category: CategoryCreateNestedOneWithoutProductsInput
     inventory: InventoryCreateNestedOneWithoutProductInput
   }
@@ -7612,7 +7687,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     quantity: number
-    seducCode: string
+    seducCode?: string | null
+    userId: string
     categoryId: string
     inventoryId: string
     created?: Date | string
@@ -7624,9 +7700,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: IntFieldUpdateOperationsInput | number
-    seducCode?: StringFieldUpdateOperationsInput | string
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
     created?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutProductNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     inventory?: InventoryUpdateOneRequiredWithoutProductNestedInput
   }
@@ -7636,7 +7713,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: IntFieldUpdateOperationsInput | number
-    seducCode?: StringFieldUpdateOperationsInput | string
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     inventoryId?: StringFieldUpdateOperationsInput | string
     created?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7648,7 +7726,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     quantity: number
-    seducCode: string
+    seducCode?: string | null
+    userId: string
     categoryId: string
     inventoryId: string
     created?: Date | string
@@ -7660,7 +7739,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: IntFieldUpdateOperationsInput | number
-    seducCode?: StringFieldUpdateOperationsInput | string
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
     created?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7670,7 +7749,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: IntFieldUpdateOperationsInput | number
-    seducCode?: StringFieldUpdateOperationsInput | string
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     inventoryId?: StringFieldUpdateOperationsInput | string
     created?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7776,6 +7856,12 @@ export namespace Prisma {
     none?: NotificationsWhereInput
   }
 
+  export type ProductListRelationFilter = {
+    every?: ProductWhereInput
+    some?: ProductWhereInput
+    none?: ProductWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -7786,6 +7872,10 @@ export namespace Prisma {
   }
 
   export type NotificationsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProductOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7883,17 +7973,7 @@ export namespace Prisma {
     none?: CategoryWhereInput
   }
 
-  export type ProductListRelationFilter = {
-    every?: ProductWhereInput
-    some?: ProductWhereInput
-    none?: ProductWhereInput
-  }
-
   export type CategoryOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ProductOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8012,6 +8092,7 @@ export namespace Prisma {
     description?: SortOrder
     quantity?: SortOrder
     seducCode?: SortOrder
+    userId?: SortOrder
     categoryId?: SortOrder
     inventoryId?: SortOrder
     created?: SortOrder
@@ -8028,6 +8109,7 @@ export namespace Prisma {
     description?: SortOrder
     quantity?: SortOrder
     seducCode?: SortOrder
+    userId?: SortOrder
     categoryId?: SortOrder
     inventoryId?: SortOrder
     created?: SortOrder
@@ -8040,6 +8122,7 @@ export namespace Prisma {
     description?: SortOrder
     quantity?: SortOrder
     seducCode?: SortOrder
+    userId?: SortOrder
     categoryId?: SortOrder
     inventoryId?: SortOrder
     created?: SortOrder
@@ -8120,6 +8203,13 @@ export namespace Prisma {
     connect?: NotificationsWhereUniqueInput | NotificationsWhereUniqueInput[]
   }
 
+  export type ProductCreateNestedManyWithoutUserInput = {
+    create?: XOR<ProductCreateWithoutUserInput, ProductUncheckedCreateWithoutUserInput> | ProductCreateWithoutUserInput[] | ProductUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutUserInput | ProductCreateOrConnectWithoutUserInput[]
+    createMany?: ProductCreateManyUserInputEnvelope
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+  }
+
   export type InventoryUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<InventoryCreateWithoutUserInput, InventoryUncheckedCreateWithoutUserInput> | InventoryCreateWithoutUserInput[] | InventoryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: InventoryCreateOrConnectWithoutUserInput | InventoryCreateOrConnectWithoutUserInput[]
@@ -8132,6 +8222,13 @@ export namespace Prisma {
     connectOrCreate?: NotificationsCreateOrConnectWithoutUserInput | NotificationsCreateOrConnectWithoutUserInput[]
     createMany?: NotificationsCreateManyUserInputEnvelope
     connect?: NotificationsWhereUniqueInput | NotificationsWhereUniqueInput[]
+  }
+
+  export type ProductUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ProductCreateWithoutUserInput, ProductUncheckedCreateWithoutUserInput> | ProductCreateWithoutUserInput[] | ProductUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutUserInput | ProductCreateOrConnectWithoutUserInput[]
+    createMany?: ProductCreateManyUserInputEnvelope
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -8170,6 +8267,20 @@ export namespace Prisma {
     deleteMany?: NotificationsScalarWhereInput | NotificationsScalarWhereInput[]
   }
 
+  export type ProductUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ProductCreateWithoutUserInput, ProductUncheckedCreateWithoutUserInput> | ProductCreateWithoutUserInput[] | ProductUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutUserInput | ProductCreateOrConnectWithoutUserInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutUserInput | ProductUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ProductCreateManyUserInputEnvelope
+    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutUserInput | ProductUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutUserInput | ProductUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
+  }
+
   export type InventoryUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<InventoryCreateWithoutUserInput, InventoryUncheckedCreateWithoutUserInput> | InventoryCreateWithoutUserInput[] | InventoryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: InventoryCreateOrConnectWithoutUserInput | InventoryCreateOrConnectWithoutUserInput[]
@@ -8196,6 +8307,20 @@ export namespace Prisma {
     update?: NotificationsUpdateWithWhereUniqueWithoutUserInput | NotificationsUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: NotificationsUpdateManyWithWhereWithoutUserInput | NotificationsUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: NotificationsScalarWhereInput | NotificationsScalarWhereInput[]
+  }
+
+  export type ProductUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ProductCreateWithoutUserInput, ProductUncheckedCreateWithoutUserInput> | ProductCreateWithoutUserInput[] | ProductUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutUserInput | ProductCreateOrConnectWithoutUserInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutUserInput | ProductUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ProductCreateManyUserInputEnvelope
+    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutUserInput | ProductUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutUserInput | ProductUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutInventoryInput = {
@@ -8360,6 +8485,12 @@ export namespace Prisma {
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
+  export type UserCreateNestedOneWithoutProductInput = {
+    create?: XOR<UserCreateWithoutProductInput, UserUncheckedCreateWithoutProductInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProductInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type CategoryCreateNestedOneWithoutProductsInput = {
     create?: XOR<CategoryCreateWithoutProductsInput, CategoryUncheckedCreateWithoutProductsInput>
     connectOrCreate?: CategoryCreateOrConnectWithoutProductsInput
@@ -8378,6 +8509,14 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutProductNestedInput = {
+    create?: XOR<UserCreateWithoutProductInput, UserUncheckedCreateWithoutProductInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProductInput
+    upsert?: UserUpsertWithoutProductInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProductInput, UserUpdateWithoutProductInput>, UserUncheckedUpdateWithoutProductInput>
   }
 
   export type CategoryUpdateOneRequiredWithoutProductsNestedInput = {
@@ -8642,6 +8781,39 @@ export namespace Prisma {
     data: NotificationsCreateManyUserInput | NotificationsCreateManyUserInput[]
   }
 
+  export type ProductCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    quantity: number
+    seducCode?: string | null
+    created?: Date | string
+    updateAt?: Date | string
+    category: CategoryCreateNestedOneWithoutProductsInput
+    inventory: InventoryCreateNestedOneWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    quantity: number
+    seducCode?: string | null
+    categoryId: string
+    inventoryId: string
+    created?: Date | string
+    updateAt?: Date | string
+  }
+
+  export type ProductCreateOrConnectWithoutUserInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutUserInput, ProductUncheckedCreateWithoutUserInput>
+  }
+
+  export type ProductCreateManyUserInputEnvelope = {
+    data: ProductCreateManyUserInput | ProductCreateManyUserInput[]
+  }
+
   export type InventoryUpsertWithWhereUniqueWithoutUserInput = {
     where: InventoryWhereUniqueInput
     update: XOR<InventoryUpdateWithoutUserInput, InventoryUncheckedUpdateWithoutUserInput>
@@ -8698,6 +8870,38 @@ export namespace Prisma {
     viewed?: BoolFilter<"Notifications"> | boolean
   }
 
+  export type ProductUpsertWithWhereUniqueWithoutUserInput = {
+    where: ProductWhereUniqueInput
+    update: XOR<ProductUpdateWithoutUserInput, ProductUncheckedUpdateWithoutUserInput>
+    create: XOR<ProductCreateWithoutUserInput, ProductUncheckedCreateWithoutUserInput>
+  }
+
+  export type ProductUpdateWithWhereUniqueWithoutUserInput = {
+    where: ProductWhereUniqueInput
+    data: XOR<ProductUpdateWithoutUserInput, ProductUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ProductUpdateManyWithWhereWithoutUserInput = {
+    where: ProductScalarWhereInput
+    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ProductScalarWhereInput = {
+    AND?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    OR?: ProductScalarWhereInput[]
+    NOT?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    id?: StringFilter<"Product"> | string
+    name?: StringFilter<"Product"> | string
+    description?: StringNullableFilter<"Product"> | string | null
+    quantity?: IntFilter<"Product"> | number
+    seducCode?: StringNullableFilter<"Product"> | string | null
+    userId?: StringFilter<"Product"> | string
+    categoryId?: StringFilter<"Product"> | string
+    inventoryId?: StringFilter<"Product"> | string
+    created?: DateTimeFilter<"Product"> | Date | string
+    updateAt?: DateTimeFilter<"Product"> | Date | string
+  }
+
   export type UserCreateWithoutInventoryInput = {
     id?: string
     name: string
@@ -8706,6 +8910,7 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updateAt?: Date | string | null
     Notifications?: NotificationsCreateNestedManyWithoutUserInput
+    Product?: ProductCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutInventoryInput = {
@@ -8716,6 +8921,7 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updateAt?: Date | string | null
     Notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    Product?: ProductUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutInventoryInput = {
@@ -8757,9 +8963,10 @@ export namespace Prisma {
     name: string
     description?: string | null
     quantity: number
-    seducCode: string
+    seducCode?: string | null
     created?: Date | string
     updateAt?: Date | string
+    user: UserCreateNestedOneWithoutProductInput
     category: CategoryCreateNestedOneWithoutProductsInput
   }
 
@@ -8768,7 +8975,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     quantity: number
-    seducCode: string
+    seducCode?: string | null
+    userId: string
     categoryId: string
     created?: Date | string
     updateAt?: Date | string
@@ -8802,6 +9010,7 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    Product?: ProductUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInventoryInput = {
@@ -8812,6 +9021,7 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    Product?: ProductUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CategoryUpsertWithWhereUniqueWithoutInventoryInput = {
@@ -8859,21 +9069,6 @@ export namespace Prisma {
     data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutInventoryInput>
   }
 
-  export type ProductScalarWhereInput = {
-    AND?: ProductScalarWhereInput | ProductScalarWhereInput[]
-    OR?: ProductScalarWhereInput[]
-    NOT?: ProductScalarWhereInput | ProductScalarWhereInput[]
-    id?: StringFilter<"Product"> | string
-    name?: StringFilter<"Product"> | string
-    description?: StringNullableFilter<"Product"> | string | null
-    quantity?: IntFilter<"Product"> | number
-    seducCode?: StringFilter<"Product"> | string
-    categoryId?: StringFilter<"Product"> | string
-    inventoryId?: StringFilter<"Product"> | string
-    created?: DateTimeFilter<"Product"> | Date | string
-    updateAt?: DateTimeFilter<"Product"> | Date | string
-  }
-
   export type InventoryCreateWithoutCategoriesInput = {
     id?: string
     name: string
@@ -8904,9 +9099,10 @@ export namespace Prisma {
     name: string
     description?: string | null
     quantity: number
-    seducCode: string
+    seducCode?: string | null
     created?: Date | string
     updateAt?: Date | string
+    user: UserCreateNestedOneWithoutProductInput
     inventory: InventoryCreateNestedOneWithoutProductInput
   }
 
@@ -8915,7 +9111,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     quantity: number
-    seducCode: string
+    seducCode?: string | null
+    userId: string
     inventoryId: string
     created?: Date | string
     updateAt?: Date | string
@@ -8977,6 +9174,33 @@ export namespace Prisma {
     data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutCategoryInput>
   }
 
+  export type UserCreateWithoutProductInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    createdAt?: Date | string | null
+    updateAt?: Date | string | null
+    Inventory?: InventoryCreateNestedManyWithoutUserInput
+    Notifications?: NotificationsCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutProductInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    createdAt?: Date | string | null
+    updateAt?: Date | string | null
+    Inventory?: InventoryUncheckedCreateNestedManyWithoutUserInput
+    Notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutProductInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutProductInput, UserUncheckedCreateWithoutProductInput>
+  }
+
   export type CategoryCreateWithoutProductsInput = {
     id?: string
     name: string
@@ -9025,6 +9249,39 @@ export namespace Prisma {
   export type InventoryCreateOrConnectWithoutProductInput = {
     where: InventoryWhereUniqueInput
     create: XOR<InventoryCreateWithoutProductInput, InventoryUncheckedCreateWithoutProductInput>
+  }
+
+  export type UserUpsertWithoutProductInput = {
+    update: XOR<UserUpdateWithoutProductInput, UserUncheckedUpdateWithoutProductInput>
+    create: XOR<UserCreateWithoutProductInput, UserUncheckedCreateWithoutProductInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutProductInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutProductInput, UserUncheckedUpdateWithoutProductInput>
+  }
+
+  export type UserUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Inventory?: InventoryUpdateManyWithoutUserNestedInput
+    Notifications?: NotificationsUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Inventory?: InventoryUncheckedUpdateManyWithoutUserNestedInput
+    Notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CategoryUpsertWithoutProductsInput = {
@@ -9097,6 +9354,7 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updateAt?: Date | string | null
     Inventory?: InventoryCreateNestedManyWithoutUserInput
+    Product?: ProductCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -9107,6 +9365,7 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updateAt?: Date | string | null
     Inventory?: InventoryUncheckedCreateNestedManyWithoutUserInput
+    Product?: ProductUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -9133,6 +9392,7 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Inventory?: InventoryUpdateManyWithoutUserNestedInput
+    Product?: ProductUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -9143,6 +9403,7 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Inventory?: InventoryUncheckedUpdateManyWithoutUserNestedInput
+    Product?: ProductUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type InventoryCreateManyUserInput = {
@@ -9159,6 +9420,18 @@ export namespace Prisma {
     sendAt?: Date | string
     viewedAt?: Date | string
     viewed?: boolean
+  }
+
+  export type ProductCreateManyUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    quantity: number
+    seducCode?: string | null
+    categoryId: string
+    inventoryId: string
+    created?: Date | string
+    updateAt?: Date | string
   }
 
   export type InventoryUpdateWithoutUserInput = {
@@ -9213,6 +9486,42 @@ export namespace Prisma {
     viewed?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type ProductUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
+    created?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
+    inventory?: InventoryUpdateOneRequiredWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: StringFieldUpdateOperationsInput | string
+    inventoryId?: StringFieldUpdateOperationsInput | string
+    created?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: StringFieldUpdateOperationsInput | string
+    inventoryId?: StringFieldUpdateOperationsInput | string
+    created?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CategoryCreateManyInventoryInput = {
     id?: string
     name: string
@@ -9227,7 +9536,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     quantity: number
-    seducCode: string
+    seducCode?: string | null
+    userId: string
     categoryId: string
     created?: Date | string
     updateAt?: Date | string
@@ -9267,9 +9577,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: IntFieldUpdateOperationsInput | number
-    seducCode?: StringFieldUpdateOperationsInput | string
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
     created?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutProductNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
   }
 
@@ -9278,7 +9589,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: IntFieldUpdateOperationsInput | number
-    seducCode?: StringFieldUpdateOperationsInput | string
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     created?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9289,7 +9601,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: IntFieldUpdateOperationsInput | number
-    seducCode?: StringFieldUpdateOperationsInput | string
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     created?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9300,7 +9613,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     quantity: number
-    seducCode: string
+    seducCode?: string | null
+    userId: string
     inventoryId: string
     created?: Date | string
     updateAt?: Date | string
@@ -9311,9 +9625,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: IntFieldUpdateOperationsInput | number
-    seducCode?: StringFieldUpdateOperationsInput | string
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
     created?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutProductNestedInput
     inventory?: InventoryUpdateOneRequiredWithoutProductNestedInput
   }
 
@@ -9322,7 +9637,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: IntFieldUpdateOperationsInput | number
-    seducCode?: StringFieldUpdateOperationsInput | string
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     inventoryId?: StringFieldUpdateOperationsInput | string
     created?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9333,7 +9649,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: IntFieldUpdateOperationsInput | number
-    seducCode?: StringFieldUpdateOperationsInput | string
+    seducCode?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     inventoryId?: StringFieldUpdateOperationsInput | string
     created?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
