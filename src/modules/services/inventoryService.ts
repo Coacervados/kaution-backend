@@ -3,13 +3,13 @@ import { prisma } from "../../libs/prisma";
 import { ConflictError, ValidationErr, NotFoundError } from "../utils/apiError";
 
 export class InventoryService {
-  static async create(data: inventoryDTO) {
-    if (!data.name || !data.userId) {
+  static async create(data: Omit<inventoryDTO, "userId">, userId: string) {
+    if (!data.name) {
       throw new ValidationErr("All fields are required");
     }
     const exists = await prisma.inventory.findFirst({
       where: {
-        userId: data.userId,
+        userId,
         name: data.name,
       },
     });
@@ -19,7 +19,7 @@ export class InventoryService {
 
     return await prisma.inventory.create({
       data: {
-        userId: data.userId,
+        userId,
         name: data.name,
         description: data.description,
       },

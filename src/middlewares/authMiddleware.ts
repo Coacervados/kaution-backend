@@ -20,9 +20,15 @@ export function authMiddleware(
   }
 
   const token = authHeader.split(" ")[1];
+  const secret = process.env.JWT_SECRET;
+
+  if (!secret) {
+    console.error("JWT_SECRET não foi definida no .env");
+    throw new Error("JWT_SECRET is missing");
+  }
 
   try {
-    const decoded = jwt.verify(token, secret as string);
+    const decoded = jwt.verify(token, secret);
 
     if (typeof decoded === "object" && "id" in decoded) {
       req.user = { id: (decoded as JwtPayload).id as string };
@@ -30,7 +36,8 @@ export function authMiddleware(
     }
 
     throw new UnauthorizedError("Invalid token payload");
-  } catch (error) {
+  } catch (err) {
+    console.error("Erro ao verificar token:", err);
     throw new UnauthorizedError("Invalid token");
   }
 }
