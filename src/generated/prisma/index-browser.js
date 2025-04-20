@@ -117,7 +117,50 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  email: 'email'
+  email: 'email',
+  password: 'password',
+  createdAt: 'createdAt',
+  updateAt: 'updateAt'
+};
+
+exports.Prisma.InventoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  description: 'description',
+  updateAt: 'updateAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  userId: 'userId',
+  inventoryId: 'inventoryId',
+  created: 'created',
+  updateAt: 'updateAt'
+};
+
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  quantity: 'quantity',
+  seducCode: 'seducCode',
+  categoryId: 'categoryId',
+  inventoryId: 'inventoryId',
+  created: 'created',
+  updateAt: 'updateAt'
+};
+
+exports.Prisma.NotificationsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  message: 'message',
+  sendAt: 'sendAt',
+  viewedAt: 'viewedAt',
+  viewed: 'viewed'
 };
 
 exports.Prisma.SortOrder = {
@@ -125,9 +168,18 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Inventory: 'Inventory',
+  Category: 'Category',
+  Product: 'Product',
+  Notifications: 'Notifications'
 };
 
 /**
