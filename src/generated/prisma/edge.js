@@ -165,7 +165,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\isaac\\OneDrive\\Documentos\\GitHub\\kaution-backend\\src\\generated\\prisma",
+      "value": "/home/matusal3m/Projects/kaution-backend/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -174,17 +174,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\isaac\\OneDrive\\Documentos\\GitHub\\kaution-backend\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/matusal3m/Projects/kaution-backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.6.0",

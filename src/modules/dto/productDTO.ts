@@ -7,8 +7,8 @@ export interface ProductResponseDTO {
     quantity: number;
     createdAt: Date;
     updateAt: Date;
-    inventory: { id: string; name: string };
-    category: { id: string; name: string };
+    inventory: { id: UUID; name: string };
+    category: { id: UUID; name: string };
     userId: string;
     seducCode: string | null;
 }
@@ -17,7 +17,7 @@ export interface ProductRequestDTO {
     name: string;
     description: string | null;
     quantity: number;
-    inventoryId: string;
-    categoryId: string;
+    inventoryId: UUID;
+    categoryId: UUID;
     seducCode: string | null;
 }
