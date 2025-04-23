@@ -17,6 +17,7 @@ export interface ProductRequestDTO {
     name: string;
     description: string | null;
     quantity: number;
+    minQuantity: number;
     inventoryId: UUID;
     categoryId: UUID;
     seducCode: string | null;
