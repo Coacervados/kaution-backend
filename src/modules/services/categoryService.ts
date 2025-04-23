@@ -1,7 +1,6 @@
 import { CategoryRequestDTO } from "../dto";
 import { prisma } from "../../libs/prisma";
 import { ConflictError, ValidationErr, NotFoundError } from "../utils/apiError";
-import { UUID } from "crypto";
 
 export class CategoryService {
     static async create(data: CategoryRequestDTO, userId: string) {
