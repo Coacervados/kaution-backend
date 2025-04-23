@@ -35,16 +35,16 @@ export class CategoryController {
         }
     }
 
-    static async getByInventoryId(
+    static async getProducts(
         req: AuthenticatedRequest,
         res: Response,
         next: NextFunction
     ) {
         try {
-            const categories = await CategoryService.getByInventoryId(
-                req.params.inventoryId
+            const products = await CategoryService.getProducts(
+                req.params.categoryId
             );
-            res.status(200).json({ success: true, data: categories });
+            res.status(200).json({ success: true, data: products });
         } catch (err) {
             next(err);
         }

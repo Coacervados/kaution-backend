@@ -49,10 +49,10 @@ export class CategoryService {
         });
     }
 
-    static async getByInventoryId(inventoryId: string) {
-        return await prisma.category.findMany({
+    static async getProducts(categoryId: string) {
+        return await prisma.product.findMany({
             where: {
-                inventoryId,
+                categoryId,
             },
         });
     }

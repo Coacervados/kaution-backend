@@ -6,11 +6,7 @@ const router = Router();
 
 router.post("/", authMiddleware, CategoryController.create);
 router.get("/", authMiddleware, CategoryController.getByUserId);
-router.get(
-    "/inventory/:id",
-    authMiddleware,
-    CategoryController.getByInventoryId
-);
+router.get("/:id/products", authMiddleware, CategoryController.getProducts);
 router.get("/:id", authMiddleware, CategoryController.getById);
 router.put("/:id", authMiddleware, CategoryController.update);
 router.delete("/:id", authMiddleware, CategoryController.delete);
