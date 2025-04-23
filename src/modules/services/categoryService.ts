@@ -1,12 +1,10 @@
-import { CategoryResponseDTO } from "../dto";
+import { CategoryRequestDTO } from "../dto";
 import { prisma } from "../../libs/prisma";
 import { ConflictError, ValidationErr, NotFoundError } from "../utils/apiError";
+import { UUID } from "crypto";
 
 export class CategoryService {
-    static async create(
-        data: Omit<CategoryResponseDTO, "userId">,
-        userId: string
-    ) {
+    static async create(data: CategoryRequestDTO, userId: string) {
         if (!data.name || !data.inventoryId) {
             throw new ValidationErr("Name and inventoryId are required");
         }
@@ -14,9 +12,9 @@ export class CategoryService {
         const inventory = await prisma.inventory.findFirst({
             where: {
                 id: data.inventoryId,
-                userId: userId,
             },
         });
+
         if (!inventory) {
             throw new NotFoundError(
                 "Inventory not found or does not belong to the user"
@@ -36,87 +34,47 @@ export class CategoryService {
 
         return await prisma.category.create({
             data: {
+                ...data,
                 userId,
-                name: data.name,
-                description: data.description,
-                inventoryId: data.inventoryId,
-                created: new Date(),
                 updateAt: new Date(),
             },
         });
     }
 
-    static async list(userId: string, inventoryId: string) {
-        const inventory = await prisma.inventory.findFirst({
-            where: {
-                id: inventoryId,
-                userId,
-            },
-        });
-
-        if (!inventory) {
-            throw new NotFoundError(
-                "Inventory does not exist or does not belong to the user"
-            );
-        }
-
+    static async getByUserId(userId: string) {
         return await prisma.category.findMany({
             where: {
-                inventoryId,
-            },
-            select: {
-                id: true,
-                name: true,
-                description: true,
+                userId,
             },
         });
     }
 
-    static async get(categoryId: string, userId: string, inventoryId: string) {
-        const category = await prisma.category.findFirst({
+    static async getByInventoryId(inventoryId: string) {
+        return await prisma.category.findMany({
             where: {
-                id: categoryId,
-                userId,
                 inventoryId,
             },
-            select: {
-                id: true,
-                name: true,
-                description: true,
-                inventoryId: true,
+        });
+    }
+
+    static async getById(id: string) {
+        const category = await prisma.category.findFirst({
+            where: {
+                id,
             },
         });
 
         if (!category) {
-            throw new NotFoundError(
-                "Category does not exist or does not belong to user in this inventory"
-            );
+            throw new NotFoundError("Category does not exist");
         }
 
         return category;
     }
 
-    static async all() {
-        return await prisma.category.findMany({
-            select: {
-                id: true,
-                name: true,
-                description: true,
-            },
-        });
-    }
-
-    static async update(
-        id: string,
-        userId: string,
-        inventoryId: string,
-        data: CategoryResponseDTO
-    ) {
+    static async update(id: string, data: CategoryRequestDTO) {
         const category = await prisma.category.findFirst({
             where: {
                 id,
-                userId,
-                inventoryId,
             },
         });
 
@@ -135,27 +93,18 @@ export class CategoryService {
                 description: data.description,
                 updateAt: new Date(),
             },
-            select: {
-                id: true,
-                name: true,
-                description: true,
-            },
         });
     }
 
-    static async delete(id: string, userId: string, inventoryId: string) {
+    static async delete(id: string) {
         const category = await prisma.category.findFirst({
             where: {
                 id,
-                userId,
-                inventoryId,
             },
         });
 
         if (!category) {
-            throw new NotFoundError(
-                "Category does not exist or does not belong to user"
-            );
+            throw new NotFoundError("Category does not exist");
         }
 
         return await prisma.category.delete({

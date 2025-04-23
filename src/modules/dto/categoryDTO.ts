@@ -11,3 +11,13 @@ export interface CategoryResponseDTO {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface CategoryRequestDTO {
+    name: string;
+    description: string;
+    seducCode: string;
+    categoryId: UUID;
+    inventoryId: UUID;
+    createdAt: Date;
+    updatedAt: Date;
+}
