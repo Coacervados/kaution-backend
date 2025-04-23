@@ -10,12 +10,14 @@ export class InventoryService {
         if (!data.name) {
             throw new ValidationErr("All fields are required");
         }
+
         const exists = await prisma.inventory.findFirst({
             where: {
                 userId,
                 name: data.name,
             },
         });
+
         if (exists) {
             throw new ConflictError("Inventory already exists");
         }
@@ -29,12 +31,13 @@ export class InventoryService {
         });
     }
 
-    static async list(userId: string) {
+    static async getByUserId(userId: string) {
         const exists = await prisma.user.findUnique({
             where: {
                 id: userId,
             },
         });
+
         if (!exists) {
             throw new NotFoundError("User does not exist");
         }
@@ -43,38 +46,54 @@ export class InventoryService {
             where: {
                 userId: userId,
             },
-            select: {
-                id: true,
-                name: true,
-                userId: true,
+        });
+    }
+
+    static async getProducts(inventoryId: string) {
+        const exists = await prisma.inventory.findFirst({
+            where: {
+                id: inventoryId,
+            },
+        });
+
+        if (!exists) {
+            throw new NotFoundError("Inventory does not exist");
+        }
+
+        return await prisma.product.findMany({
+            where: {
+                inventoryId,
             },
         });
     }
 
-    static async get(id: string, userId: string) {
+    static async getCategories(inventoryId: string) {
+        const exists = await prisma.inventory.findFirst({
+            where: {
+                id: inventoryId,
+            },
+        });
+
+        if (!exists) {
+            throw new NotFoundError("Inventory does not exist");
+        }
+
+        return await prisma.category.findMany({
+            where: {
+                inventoryId,
+            },
+        });
+    }
+
+    static async getById(id: string) {
         const inventory = await prisma.inventory.findFirst({
             where: {
                 id,
-                userId,
-            },
-            select: {
-                id: true,
-                name: true,
-                description: true,
-                userId: true,
-                categories: {
-                    select: {
-                        name: true,
-                        description: true,
-                    },
-                },
             },
         });
 
         if (!inventory) {
-            throw new NotFoundError(
-                "Inventory does not exist or does not belong to user"
-            );
+            throw new NotFoundError("Inventory does not exist");
         }
 
         return inventory;
@@ -82,19 +101,16 @@ export class InventoryService {
 
     static async update(
         id: string,
-        userId: string,
         data: Omit<InventoryResponseDTO, "userId">
     ) {
         const inventory = await prisma.inventory.findFirst({
             where: {
                 id,
-                userId,
             },
         });
+
         if (!inventory) {
-            throw new NotFoundError(
-                "Inventory does not exist or does not belong to user"
-            );
+            throw new NotFoundError("Inventory does not exist");
         }
 
         return await prisma.inventory.update({
@@ -105,25 +121,18 @@ export class InventoryService {
                 name: data.name,
                 description: data.description,
             },
-            select: {
-                id: true,
-                name: true,
-                description: true,
-            },
         });
     }
 
-    static async delete(id: string, userId: string) {
+    static async delete(id: string) {
         const inventory = await prisma.inventory.findFirst({
             where: {
                 id,
-                userId,
             },
         });
+
         if (!inventory) {
-            throw new NotFoundError(
-                "Inventory does not exist or does not belong to user"
-            );
+            throw new NotFoundError("Inventory does not exist");
         }
 
         return await prisma.inventory.delete({
