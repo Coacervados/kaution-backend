@@ -135,6 +135,17 @@ export class ProductService {
     return product;
   }
 
+  static async all() {
+    return await prisma.product.findMany({
+      select: {
+        id: true,
+        name: true,
+        quantity: true,
+        description: true,
+      },
+    });
+  }
+
   static async update(
     id: string,
     userId: string,

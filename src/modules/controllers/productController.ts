@@ -80,6 +80,16 @@ export class ProductController {
     }
   }
 
+  static async all(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+    try {
+      const products = await ProductService.all();
+      res.status(200).json({ success: true, data: products });
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  }
+
   static async update(
     req: AuthenticatedRequest,
     res: Response,
