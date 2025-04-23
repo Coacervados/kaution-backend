@@ -4,11 +4,10 @@ import { ProductController } from "../controllers/index";
 
 const router = Router();
 
-router.post("/:inventoryId/:categoryId", authMiddleware, ProductController.create);
-router.get("/:inventoryId/:categoryId", authMiddleware, ProductController.list);
-router.get("/:inventoryId/:categoryId/:id", authMiddleware, ProductController.get);
-router.put("/:inventoryId/:categoryId/:id", authMiddleware, ProductController.update);
-router.delete("/:inventoryId/:categoryId/:id", authMiddleware, ProductController.delete);
-
+router.post("/", authMiddleware, ProductController.create);
+router.get("/", authMiddleware, ProductController.getByUserId);
+router.get("/:id", authMiddleware, ProductController.getById);
+router.put("/:id", authMiddleware, ProductController.update);
+router.delete("/:id", authMiddleware, ProductController.delete);
 
 export default router;

@@ -1,12 +1,23 @@
 import type { UUID } from "../../types/uuid";
 
-export interface categoryDTO {
+export interface CategoryResponseDTO {
     id: UUID;
     name: string;
-    description: string | null;
+    description: string;
+    seducCode: string;
+    userId: UUID;
+    category: { id: UUID; name: string };
+    inventory: { id: UUID; name: string };
     createdAt: Date;
-    updateAt: Date;
-    inventoryId: string;
-    userId: string;
-    products: string[];
+    updatedAt: Date;
+}
+
+export interface CategoryRequestDTO {
+    name: string;
+    description: string;
+    seducCode: string;
+    categoryId: UUID;
+    inventoryId: UUID;
+    createdAt: Date;
+    updatedAt: Date;
 }
