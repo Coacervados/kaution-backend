@@ -67,7 +67,6 @@ export class CategoryService {
     });
   }
 
-
   static async get(categoryId: string, userId: string, inventoryId: string) {
     const category = await prisma.category.findFirst({
       where: {
@@ -92,6 +91,16 @@ export class CategoryService {
     return category;
   }
 
+  static async all(){
+    return await prisma.category.findMany({
+      select: {
+        id: true,
+        name: true,
+        description: true,
+      },
+    });
+  }
+  
   static async update(id: string, userId: string, inventoryId: string, data: categoryDTO) {
     const category = await prisma.category.findFirst({
       where: {

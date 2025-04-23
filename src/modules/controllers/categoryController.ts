@@ -49,6 +49,15 @@ export class CategoryController {
     }
   }
 
+  static async all(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+    try {
+      const categories = await CategoryService.all();
+      res.status(200).json({ success: true, data: categories });
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async update(
     req: AuthenticatedRequest,
     res: Response,
