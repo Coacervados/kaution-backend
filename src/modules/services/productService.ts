@@ -2,10 +2,11 @@ import { ProductRequestDTO, ProductResponseDTO } from "../dto";
 import { prisma } from "../../libs/prisma";
 import { checkStock } from "../utils/checkStock";
 import { ConflictError, ValidationErr, NotFoundError } from "../utils/apiError";
+import { Prisma } from "@prisma/client";
 
 export class ProductService {
     static async create(data: ProductRequestDTO, userId: string) {
-        const { name, quantity, inventoryId, categoryId, description } = data;
+        const { name, quantity, inventoryId, categoryId, description, minQuantity } = data;
 
         if (!name || quantity == null || !inventoryId || !categoryId) {
             throw new ValidationErr(
@@ -57,18 +58,18 @@ export class ProductService {
                 name,
                 description,
                 quantity,
-                minQuantity: data.minQuantity,
+                minQuantity,
                 categoryId,
                 inventoryId,
                 created: new Date(),
                 updateAt: new Date(),
-            },
+            } as Prisma.ProductUncheckedCreateInput,
         });
 
         await checkStock({
             name: create.name,
             quantity: create.quantity,
-            minQuantity: create.minQuantity,
+            minQuantity: (create as any).minQuantity,
             userId: create.userId,
         });
         
@@ -117,7 +118,8 @@ export class ProductService {
         });
 
         await checkStock({
-            ...productUpdated
+            ...productUpdated,
+            minQuantity: (productUpdated as any).minQuantity,
         });
 
         return productUpdated;

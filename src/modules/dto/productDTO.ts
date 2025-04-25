@@ -5,6 +5,7 @@ export interface ProductResponseDTO {
     name: string;
     description: string | null;
     quantity: number;
+    minQuantity: number | null;
     createdAt: Date;
     updateAt: Date;
     inventory: { id: UUID; name: string };
@@ -17,7 +18,7 @@ export interface ProductRequestDTO {
     name: string;
     description: string | null;
     quantity: number;
-    minQuantity: number;
+    minQuantity: number | null;
     inventoryId: UUID;
     categoryId: UUID;
     seducCode: string | null;

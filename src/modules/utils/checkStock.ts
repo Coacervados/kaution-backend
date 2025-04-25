@@ -1,5 +1,4 @@
 import { prisma } from "../../libs/prisma";
-import { ProductResponseDTO } from "../dto";
 
 type MinimalProduct = {
     name: string;
