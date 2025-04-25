@@ -29,8 +29,8 @@ export class CategoryController {
         try {
             const pdf = await CategoryService.generatePdf(
                 req.params.categoryId,
-                req.query.orderBy as string,
-                req.query.order as "asc" | "desc"
+                req.params.orderBy as string,
+                req.params.order as "asc" | "desc"
             );
             res.setHeader("Content-Type", "application/pdf");
             res.setHeader(
@@ -50,7 +50,7 @@ export class CategoryController {
         next: NextFunction
     ) {
         try {
-            const categories = await CategoryService.getByUserId(req.user!.id);
+            const categories = await CategoryService.getByUserId(req.params.id);
             res.status(200).json({ success: true, data: categories });
         } catch (err) {
             next(err);

@@ -1,12 +1,12 @@
 import PdfPrinter from "pdfmake";
 
 const fonts = {
-	Roboto: {
-    	normal: "node_modules/pdfmake/build/vfs_fonts.js",
-    	bold: "node_modules/pdfmake/build/vfs_fonts.js",
-    	italics: "node_modules/pdfmake/build/vfs_fonts.js",
-    	bolditalics: "node_modules/pdfmake/build/vfs_fonts.js",
-	},
+    Roboto: {
+        normal: "src/assets/fonts/Roboto/static/Roboto-Regular.ttf",
+        bold: "src/assets/fonts/Roboto/static/Roboto-Bold.ttf",
+        italics: "src/assets/fonts/Roboto/static/Roboto-Italic.ttf",
+        bolditalics: "src/assets/fonts/Roboto/static/Roboto-BoldItalic.ttf",
+    },
 };
 
 const printer = new PdfPrinter(fonts);

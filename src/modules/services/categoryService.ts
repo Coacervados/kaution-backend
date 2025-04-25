@@ -55,6 +55,8 @@ export class CategoryService {
         	orderBy: { [orderBy]: order },
     	});
 
+        console.log(products);
+
     	if (products.length === 0) {
         	throw new NotFoundError("No products found for this category");
     	}
