@@ -1,6 +1,7 @@
-import { CategoryRequestDTO } from "../dto";
+import { CategoryRequestDTO, ProductRequestDTO } from "../dto";
 import { prisma } from "../../libs/prisma";
 import { ConflictError, ValidationErr, NotFoundError } from "../utils/apiError";
+import { PdfUtil } from "../utils/pdfGenerator";
 
 export class CategoryService {
     static async create(data: CategoryRequestDTO, userId: string) {
@@ -39,6 +40,53 @@ export class CategoryService {
             },
         });
     }
+
+    static async generatePdf(categoryId: string, orderBy: string, order: "asc" | "desc") {
+    	const category = await prisma.category.findUnique({
+        	where: { id: categoryId },
+    	});
+
+    	if (!category) {
+        	throw new NotFoundError("Category not found");
+    	}
+
+    	const products = await prisma.product.findMany({
+        	where: { categoryId },
+        	orderBy: { [orderBy]: order },
+    	});
+
+    	if (products.length === 0) {
+        	throw new NotFoundError("No products found for this category");
+    	}
+
+    	const docDefinition = {
+        	content: [
+            	{ text: `Produtos na Categoria: ${category.name}`, style: "header" },
+            	{
+                	table: {
+                    	headerRows: 1,
+                    	widths: ["*", "*"],
+                    	body: [
+                        	["Nome", "Quantity"],
+                        	...products.map((product: ProductRequestDTO) => [
+                            	product.name,
+                            	product.quantity.toString()
+                        	]),
+                    	],
+                	},
+            	},
+        	],
+        	styles: {
+            	header: {
+                	fontSize: 18,
+                	bold: true,
+                	margin: [0, 0, 0, 10],
+            	},
+        	},
+    	};
+
+    	return PdfUtil.generatePdf(docDefinition);
+	}
 
     static async getByUserId(userId: string) {
         return await prisma.category.findMany({
