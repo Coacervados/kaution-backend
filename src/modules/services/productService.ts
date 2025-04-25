@@ -1,5 +1,6 @@
 import { ProductRequestDTO, ProductResponseDTO } from "../dto";
 import { prisma } from "../../libs/prisma";
+import { checkStock } from "../utils/checkStock";
 import { ConflictError, ValidationErr, NotFoundError } from "../utils/apiError";
 
 export class ProductService {
@@ -50,18 +51,24 @@ export class ProductService {
             throw new ConflictError("Product already exists in this category");
         }
 
-        return await prisma.product.create({
+        const create = await prisma.product.create({
             data: {
                 userId,
                 name,
                 description,
                 quantity,
+                minQuantity: data.minQuantity,
                 categoryId,
                 inventoryId,
                 created: new Date(),
                 updateAt: new Date(),
             },
         });
+
+        await checkStock({
+            ...create
+        });
+        
     }
 
     static async getByUserId(userId: string) {
@@ -97,13 +104,19 @@ export class ProductService {
             throw new NotFoundError("Product not found");
         }
 
-        return await prisma.product.update({
+        const productUpdated = await prisma.product.update({
             where: { id },
             data: {
                 ...data,
                 updateAt: new Date(),
             },
         });
+
+        await checkStock({
+            ...productUpdated
+        });
+
+        return productUpdated;
     }
 
     static async delete(id: string) {
