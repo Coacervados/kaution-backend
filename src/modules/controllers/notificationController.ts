@@ -20,4 +20,21 @@ export class NotificationController {
             console.log(err);
         }
     }
+
+    static async markAsViewed(
+        req: AuthenticatedRequest,
+        res: Response,
+        next: NextFunction
+    ) {
+        try {
+            const data = req.body as NotificationRequestDTO;
+
+            const notifications = await NotificationService.markAsViewed(data);
+
+            res.status(200).json({ success: true, data: notifications });
+        } catch (err) {
+            next(err);
+            console.log(err);
+        }
+    }
 }
