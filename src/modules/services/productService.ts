@@ -66,9 +66,13 @@ export class ProductService {
         });
 
         await checkStock({
-            ...create
+            name: create.name,
+            quantity: create.quantity,
+            minQuantity: create.minQuantity,
+            userId: create.userId,
         });
         
+        return create;
     }
 
     static async getByUserId(userId: string) {

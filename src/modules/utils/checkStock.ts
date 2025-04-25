@@ -1,12 +1,17 @@
 import { prisma } from "../../libs/prisma";
 import { ProductResponseDTO } from "../dto";
 
-export async function checkStock(
-    data: ProductResponseDTO & { minQuantity?: number }
-) {
-    if (data.minQuantity !== undefined && data.quantity <= data.minQuantity) {
-        const message = `Low stock "${data.name}". Current: ${data.quantity}, minimum: ${data.minQuantity}`;
+type MinimalProduct = {
+    name: string;
+    quantity: number;
+    minQuantity: number | null;
+    userId: string;
+};
 
+export async function checkStock(data: MinimalProduct) {
+    if (typeof data.minQuantity === 'number' && data.quantity <= data.minQuantity) {
+        const message = `Low stock "${data.name}". Current: ${data.quantity}, minimum: ${data.minQuantity}`;
+    
         const exists = await prisma.notifications.findFirst({
             where: {
                 userId: data.userId,
@@ -14,7 +19,7 @@ export async function checkStock(
                 viewed: false,
             },
         });
-
+    
         if (!exists) {
             await prisma.notifications.create({
                 data: {
