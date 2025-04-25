@@ -8,6 +8,9 @@ export class NotificationService {
             where: {
                 userId: data.userId,
             },
+            orderBy: {
+                sendAt: "desc",
+            }
         });
 
         return notifications;
