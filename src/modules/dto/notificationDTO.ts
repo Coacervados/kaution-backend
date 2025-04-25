@@ -1,7 +1,7 @@
 import { UUID } from "../../types/uuid";
 
 export interface NotificationResponseDTO {
-    userId: UUID;
+    userId: string;
     message: string;
     viewed?: boolean;
 }
