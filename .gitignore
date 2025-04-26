@@ -2,3 +2,5 @@
 .env
 node_modules
 prisma/client
+prisma/database
+prisma/prisma
