@@ -4,7 +4,9 @@ export interface InventoryResponseDTO {
     id: UUID;
     name: string;
     description: string;
-    createdAt: Date;
-    updateAt: Date;
-    userId: UUID;
+}
+
+export interface InventoryRequestDTO {
+    name: string;
+    description: string;
 }

@@ -1,6 +1,6 @@
 import { prisma } from "../../libs/prisma";
 import { NotificationRequestDTO } from "../dto/notificationDTO";
-import { ConflictError, ValidationErr, NotFoundError } from "../utils/apiError";
+import { NotFoundError } from "../utils/apiError";
 
 export class NotificationService {
     static async getByUser(data: NotificationRequestDTO) {
@@ -10,7 +10,7 @@ export class NotificationService {
             },
             orderBy: {
                 sendAt: "desc",
-            }
+            },
         });
 
         return notifications;

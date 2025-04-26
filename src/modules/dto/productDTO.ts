@@ -1,25 +1,25 @@
-import type { UUID } from "../../types/uuid";
+import { UUID } from "../../types/uuid";
+import { CategoryInfo } from "../../types/categoryInfor";
+import { InventoryInfo } from "../../types/InventoryInfo";
 
 export interface ProductResponseDTO {
     id: UUID;
     name: string;
     description: string | null;
     quantity: number;
-    minQuantity: number | null;
-    createdAt: Date;
-    updateAt: Date;
-    inventory: { id: UUID; name: string };
-    category: { id: UUID; name: string };
-    userId: string;
-    seducCode: string | null;
+    updatedAt: Date;
+    seducCode: string;
+    category: CategoryInfo;
+    inventory: InventoryInfo;
+    minQuantity: number;
 }
 
 export interface ProductRequestDTO {
     name: string;
     description: string | null;
     quantity: number;
-    minQuantity: number | null;
-    inventoryId: UUID;
+    seducCode: string;
     categoryId: UUID;
-    seducCode: string | null;
+    inventoryId: UUID;
+    minQuantity: number;
 }
