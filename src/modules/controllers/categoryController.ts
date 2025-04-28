@@ -21,6 +21,28 @@ export class CategoryController {
             next(err);
         }
     }
+    static async pdfGenerate(
+        req: AuthenticatedRequest,
+        res: Response,
+        next: NextFunction
+    ) {
+        try {
+            const pdf = await CategoryService.generatePdf(
+                req.params.categoryId,
+                req.params.orderBy as string,
+                req.params.order as "asc" | "desc"
+            );
+            res.setHeader("Content-Type", "application/pdf");
+            res.setHeader(
+                "Content-Disposition",
+                `attachment; filename=products-${req.params.categoryId}.pdf`
+            );
+            res.setHeader("Content-Length", pdf.length);
+            res.status(200).send(pdf);
+        } catch (err) {
+            next(err);
+        }
+    }
 
     static async getByUserId(
         req: AuthenticatedRequest,
@@ -28,7 +50,7 @@ export class CategoryController {
         next: NextFunction
     ) {
         try {
-            const categories = await CategoryService.getByUserId(req.user!.id);
+            const categories = await CategoryService.getByUserId(req.params.id);
             res.status(200).json({ success: true, data: categories });
         } catch (err) {
             next(err);

@@ -1,6 +1,7 @@
-import { CategoryRequestDTO } from "../dto";
+import { CategoryRequestDTO, ProductRequestDTO } from "../dto";
 import { prisma } from "../../libs/prisma";
 import { ConflictError, ValidationErr, NotFoundError } from "../utils/apiError";
+import { PdfUtil } from "../utils/pdfGenerator";
 
 export class CategoryService {
     static async create(data: CategoryRequestDTO, userId: string) {
@@ -39,6 +40,89 @@ export class CategoryService {
             },
         });
     }
+
+    static async generatePdf(categoryId: string, orderBy: string, order: "asc" | "desc") {
+    	const category = await prisma.category.findUnique({
+        	where: { id: categoryId },
+    	});
+
+    	if (!category) {
+        	throw new NotFoundError("Category not found");
+    	}
+
+    	const products = await prisma.product.findMany({
+        	where: { categoryId },
+        	orderBy: { [orderBy]: order },
+    	});
+
+        console.log(products);
+
+    	if (products.length === 0) {
+        	throw new NotFoundError("No products found for this category");
+    	}
+
+    	const docDefinition = {
+            content: [
+                {
+                    columns: [
+                        {
+                            text: `Relatório de Produtos na Categoria: ${category.name}`,
+                            style: 'header',
+                            alignment: 'center',
+                            width: '*',
+                        },
+                        {
+                            image: 'src/assets/logo.png',
+                            width: 40, 
+                            alignment: 'right',
+                        },
+                    ],
+                },
+                {
+                    text: '\n',
+                },
+                {
+                    table: {
+                        headerRows: 1,
+                        widths: ['*', '*', '*'],
+                        body: [
+                            [
+                                { text: 'Nome', style: 'tableHeader' },
+                                { text: 'Quantidade', style: 'tableHeader' },
+                                { text: 'Código SEDUC', style: 'tableHeader' },
+                            ],
+                            ...products.map((product: ProductRequestDTO) => [
+                                product.name,
+                                product.quantity.toString(),
+                                product.seducCode || 'N/A',
+                            ]),
+                        ],
+                    },
+                    layout: 'lightHorizontalLines',
+                },
+            ],
+            styles: {
+                header: {
+                    fontSize: 18,
+                    bold: true,
+                    margin: [0, 0, 0, 10],
+                },
+                tableHeader: {
+                    bold: true,
+                    fontSize: 12,
+                    color: 'white',
+                    fillColor: '#4CAF50',
+                    alignment: 'center',
+                },
+            },
+            defaultStyle: {
+                font: 'Roboto',
+                fontSize: 10,
+            },
+        };
+
+    	return PdfUtil.generatePdf(docDefinition);
+	}
 
     static async getByUserId(userId: string) {
         return await prisma.category.findMany({
