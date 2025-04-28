@@ -62,30 +62,64 @@ export class CategoryService {
     	}
 
     	const docDefinition = {
-        	content: [
-            	{ text: `Produtos na Categoria: ${category.name}`, style: "header" },
-            	{
-                	table: {
-                    	headerRows: 1,
-                    	widths: ["*", "*"],
-                    	body: [
-                        	["Nome", "Quantity"],
-                        	...products.map((product: ProductRequestDTO) => [
-                            	product.name,
-                            	product.quantity.toString()
-                        	]),
-                    	],
-                	},
-            	},
-        	],
-        	styles: {
-            	header: {
-                	fontSize: 18,
-                	bold: true,
-                	margin: [0, 0, 0, 10],
-            	},
-        	},
-    	};
+            content: [
+                {
+                    columns: [
+                        {
+                            text: `Relatório de Produtos na Categoria: ${category.name}`,
+                            style: 'header',
+                            alignment: 'center',
+                            width: '*',
+                        },
+                        {
+                            image: 'src/assets/logo.png',
+                            width: 40, 
+                            alignment: 'right',
+                        },
+                    ],
+                },
+                {
+                    text: '\n',
+                },
+                {
+                    table: {
+                        headerRows: 1,
+                        widths: ['*', '*', '*'],
+                        body: [
+                            [
+                                { text: 'Nome', style: 'tableHeader' },
+                                { text: 'Quantidade', style: 'tableHeader' },
+                                { text: 'Código SEDUC', style: 'tableHeader' },
+                            ],
+                            ...products.map((product: ProductRequestDTO) => [
+                                product.name,
+                                product.quantity.toString(),
+                                product.seducCode || 'N/A',
+                            ]),
+                        ],
+                    },
+                    layout: 'lightHorizontalLines',
+                },
+            ],
+            styles: {
+                header: {
+                    fontSize: 18,
+                    bold: true,
+                    margin: [0, 0, 0, 10],
+                },
+                tableHeader: {
+                    bold: true,
+                    fontSize: 12,
+                    color: 'white',
+                    fillColor: '#4CAF50',
+                    alignment: 'center',
+                },
+            },
+            defaultStyle: {
+                font: 'Roboto',
+                fontSize: 10,
+            },
+        };
 
     	return PdfUtil.generatePdf(docDefinition);
 	}
